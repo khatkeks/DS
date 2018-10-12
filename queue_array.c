@@ -16,14 +16,19 @@ void enqueue(void *q_enq, int queue_data)
 
         printf("Enqueue Operation : \n");
 
-	if ( q->fr == q->size )
+	if ( q->rr == q->size - 1)
 	{
 		printf("Queue is Full !! \n");
 		return;
 	}
+	if ( q -> rr == -1 )
+	{
+		q->arr[++q->rr] = queue_data;
+		q->fr = q->fr + 1;
+	}
 	else
 	{
-		q->arr[++q->fr] = queue_data;
+		q->arr[++q->rr] = queue_data;
 	} 
 }
 
@@ -33,14 +38,14 @@ void dequeue(void *q_deq)
 
 	printf("Dequeue Operation : \n");
 
-	if ( q->fr == -1 || q->rr > q->fr )
+	if ( q->fr == -1)
 	{
 		printf("Queue is Empty !!\n");
 		return;
 	}
 	else
 	{
-		q->rr = q->rr + 1; 
+		q->fr = q->fr + 1; 
 	}
 }
 
@@ -50,16 +55,16 @@ void display(void *q_disp)
 	
 	struct queue *q = (struct queue *) q_disp ;
 	
-	if ( q->fr == -1 || q->fr < q->rr )
+	if ( q->fr == -1 )
 	{
 		printf("Queue is Empty !!\n");
 		return;
 	}
 
 	printf("Queue Data : ");
-	for ( i = q->rr ; i <= q->fr; i++)
+	for ( i = q->rr ; i >= q->fr; i--)
 	{
-			printf("%d ", q->arr[i]);
+		printf("%d ", q->arr[i]);
 	}
 	printf("\n");
 }
@@ -72,7 +77,7 @@ void init (void *q_init, int q_size)
 	q -> arr = malloc( q_size * sizeof(int));
 	q -> size = q_size;
 	q -> fr = -1;
-	q -> rr = 0;
+	q -> rr = -1;
 }
 
 void release(void *q_rel)
