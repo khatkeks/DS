@@ -124,6 +124,15 @@ void display( void *list)
 	printf("\n\n");
 }
 
+void reverse_list(struct node *head)
+{
+	if ( head == NULL)
+		return;
+
+	reverse_list(head->next);
+	printf("%d " , head-> data);
+}
+
 void init(void *list)
 {
 	struct LinkedList *ll_init;
@@ -164,7 +173,8 @@ int main()
 		printf("2. Display List \n");
 		printf("3. Delete Last node \n");
 		printf("4. Delete First node \n");
-		printf("5. Exit \n");
+		printf("5. Reverse List \n");
+		printf("6. Exit \n");
 		printf("\n Enter your choice \n");
 		scanf("%d", &opt);
 		switch(opt)
@@ -184,6 +194,11 @@ int main()
 				deleteFirstNode(&ll);
 				break;
 			case 5:
+				printf("Reversed List: ");
+				reverse_list((&ll)->head);
+				printf("\n\n");
+				break;
+			case 6:
 				release(&ll);
 				exit(0);
 			default:

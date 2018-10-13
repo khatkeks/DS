@@ -35,7 +35,7 @@ int main()
 
 	printf("No.of lines from file: %d\n", len);
 	
-	arr = malloc(sizeof(int) * len);
+	arr = malloc(sizeof(int) * (len +1));
 	
 	if(arr == NULL)
 	{
@@ -64,23 +64,23 @@ int main()
 */	
 	for( i = 0; i < len; i++)
 	{
-		for( j = i; j < len; j++)
+		for( j = 0; j < len; j++)
 		{
-			if(arr[i] > arr[j+1])
+			if(arr[j] > arr[j+1])
 			{
 				tmp = arr[j+1];
-				arr[j+1] = arr [i];
-				arr[i] = tmp; 
+				arr[j+1] = arr[j];
+				arr[j] = tmp;
 			}
 		}
 	}	
 		
 	rewind(fp);
 
-	printf("\n\nSorted Data:\n");
+//	printf("\n\nSorted Data:\n");
 	for(i = 0; i < len ; i++)
 	{
-		printf("%d \n", arr[i]);
+//		printf("%d \n", arr[i]);
 		fprintf(fp, "%d\n", arr[i]);
 	}
 
