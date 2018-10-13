@@ -124,13 +124,32 @@ void display( void *list)
 	printf("\n\n");
 }
 
-void reverse_list(struct node *head)
+void display_reverse_list(struct node *head)
 {
 	if ( head == NULL)
 		return;
 
-	reverse_list(head->next);
+	display_reverse_list(head->next);
 	printf("%d " , head-> data);
+}
+
+void reverse_list(void *h)
+{
+	struct LinkedList *ll;
+
+	struct node *curr, *prev = NULL, *temp;
+
+	ll = (struct LinkedList *) h;
+	curr = ll -> head;
+
+	while(curr != NULL)
+	{
+		temp = curr-> next;
+		curr -> next = prev;
+		prev = curr;
+		curr = temp;
+	}
+	ll->head = prev;
 }
 
 void init(void *list)
@@ -173,8 +192,9 @@ int main()
 		printf("2. Display List \n");
 		printf("3. Delete Last node \n");
 		printf("4. Delete First node \n");
-		printf("5. Reverse List \n");
-		printf("6. Exit \n");
+		printf("5. Display Reverse List \n");
+		printf("6. Permanant Reverse List \n");
+		printf("7. Exit \n");
 		printf("\n Enter your choice \n");
 		scanf("%d", &opt);
 		switch(opt)
@@ -194,11 +214,16 @@ int main()
 				deleteFirstNode(&ll);
 				break;
 			case 5:
-				printf("Reversed List: ");
-				reverse_list((&ll)->head);
+				printf("Display Reversed List: ");
+				display_reverse_list((&ll)->head);
 				printf("\n\n");
 				break;
 			case 6:
+				printf("Permanant Reversed List: ");
+				reverse_list(&ll);
+				printf("\n\n");
+				break;
+			case 7:
 				release(&ll);
 				exit(0);
 			default:
