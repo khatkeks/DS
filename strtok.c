@@ -2,36 +2,47 @@
 #include<stdlib.h>
 #include<string.h>
 
-void my_strtok( char *str, char *delim)
+/*
+* Strtok implementation
+*/
+char *mystrtok(char *str, char *tok)
 {
-	char *token = NULL;
-	int i = 0, j =0, len = 0, k =0;
+	static char buffer[100];
+	static int pos;
 
-	len = strlen(str);
-	j = len -1;
-	token = (char *) malloc(len);
-	printf("Tokens of string are: \n");
-	for( i = 0; i < j; i++)
+	char *trav;
+	int i = 0;
+
+	if(str == NULL)
 	{
-		k = 0;
-		while( str[i] != delim[0] && k < j)
-		{
-			token[k] = str[i];
-			k++;
-			i++;
-		}
-		token[k] = '\0';
-		puts(token);
+		return NULL;
 	}
 
-	free(token);
-	token = NULL; 
-	return;
+	if(pos != 0)
+	{
+		pos = pos+1;
+	}
+
+	trav = str + pos;
+	while(*trav)
+	{
+		if(*trav != *tok)
+		{
+			buffer[i++] = *trav++;
+			pos++;
+		}
+		else
+		{
+			break;
+		}
+	}
+	buffer[i] = '\0';
+	return(&buffer[0]);
 }
 
 int main()
 {
-	char *str, *delim;
+	char *str, *delim, *tok;
 
 	str = (char *)malloc (sizeof(char) * 20);
 
@@ -48,7 +59,12 @@ int main()
 		if(fgets(delim, 5, stdin) != NULL)
 		{
 
-			my_strtok(str, delim);
+			tok = mystrtok(str, delim);
+			while(*tok)
+			{
+				printf("%s\n", tok);
+				tok = mystrtok(str, delim);
+			}
 		}
 		else
 		{

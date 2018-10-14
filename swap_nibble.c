@@ -1,6 +1,7 @@
 #include<stdio.h>
 
-#define swap_nibble(x) ((x & 0xF0 ) >> 4 ) | (( x & 0x0F) << 4 )
+//#define swap_nibble(x) ((x & 0xF0 ) >> 4 ) | (( x & 0x0F) << 4 )
+#define swap_nibble(x) ((x >> 4) & 0x0F) | ( (x << 4)&0xF0 )
 /*
 unsigned char swap_nibble(unsigned char  c)
 {
