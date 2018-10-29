@@ -23,7 +23,7 @@ int main()
 
 	for(i=0; i < N; i++)
 	{
-		for(j=0; j< N; j++)
+		for(j=0; j< N - i; j++)
 		{
 			if( arr[j] > arr[j+1] )
 			{

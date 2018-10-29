@@ -5,7 +5,7 @@
 /*
 * Strtok implementation
 */
-char *mystrtok(char *str, char *tok)
+char *mystrtok(char *str, char *delim)
 {
 	static char buffer[100];
 	static int pos;
@@ -18,6 +18,7 @@ char *mystrtok(char *str, char *tok)
 		return NULL;
 	}
 
+	// Move to next character (after delimeter)
 	if(pos != 0)
 	{
 		pos = pos+1;
@@ -26,7 +27,7 @@ char *mystrtok(char *str, char *tok)
 	trav = str + pos;
 	while(*trav)
 	{
-		if(*trav != *tok)
+		if(*trav != *delim)
 		{
 			buffer[i++] = *trav++;
 			pos++;

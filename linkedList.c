@@ -152,6 +152,28 @@ void reverse_list(void *h)
 	ll->head = prev;
 }
 
+void sort_list(void *head)
+{
+	struct LinkedList *ll;
+	struct node *i, *j;
+	int temp = 0;
+
+	ll = (struct LinkedList *)head;
+
+	for ( i = ll->head; i != NULL; i=i->next)
+	{
+		for(j = i->next; j != NULL; j=j->next)
+		{
+			if (i->data > j->data)
+			{
+				temp = i->data;
+				i->data = j->data;
+				j->data = temp;
+			}
+		}
+	}
+}
+
 void init(void *list)
 {
 	struct LinkedList *ll_init;
@@ -194,7 +216,8 @@ int main()
 		printf("4. Delete First node \n");
 		printf("5. Display Reverse List \n");
 		printf("6. Permanant Reverse List \n");
-		printf("7. Exit \n");
+		printf("7. Sorted List \n");
+		printf("8. Exit \n");
 		printf("\n Enter your choice \n");
 		scanf("%d", &opt);
 		switch(opt)
@@ -224,6 +247,11 @@ int main()
 				printf("\n\n");
 				break;
 			case 7:
+				printf("Display Sorted List\n");
+				sort_list(&ll);
+				display(&ll);
+				break;
+			case 8:
 				release(&ll);
 				exit(0);
 			default:
