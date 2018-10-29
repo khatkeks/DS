@@ -6,28 +6,25 @@ int main()
 {
 
 	char *str;
-	char tmp;
 	int i, len, j;
 	str = malloc(sizeof(10));
 	printf("Enter string \n");
 	if(fgets(str, sizeof(str), stdin) != NULL)
 	{
-
 		len = strlen(str);
-
 		i = 0;
-		j = len-1;
+		j = len - 1;
 	
 		while(i < j )
 		{
-			tmp = str[i];
-			str[i] = str[j];
-			str[j] = tmp;
+			str[i] = str[i] ^ str[j];
+			str[j] = str[i] ^ str[j];
+			str[i] = str[i] ^ str[j];
+
 			i++;
 			j--;	
 		}	
 		printf("Reverse String : %s \n", str);
-
      }
      return 0;
 }
